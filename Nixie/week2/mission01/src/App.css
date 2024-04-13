@@ -1,0 +1,77 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.container {
+  text-align: center;
+}
+
+.input_box {
+  margin: 40px;
+  padding: 10px;
+  width: 400px;
+  height: 20px;
+  font-size: 20px;
+}
+
+.status-bar {
+  display: flex;
+  justify-content: space-around;
+  align-items: start;
+  padding: 10px;
+  margin: 20px 0; 
+}
+
+hr {
+  width: 1000px; 
+}
+
+
+.todo-list,
+.done-list {
+  display: inline-block;
+  align-items: start;
+  vertical-align: top;
+  margin-right: 40px;
+}
+
+.done-container,
+.todo-container {
+  align-items: start;
+  left: calc(50% - 460px); 
+}
+
+.doneTitle,
+.todoTitle {
+  display: flex;
+  align-items: start;
+  margin-top: 3px;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 5px;
+  text-decoration-color: gray;
+}
+
+.todo-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  white-space: nowrap; 
+}
+
+.todo-item button,
+.done-item button {
+  background-color: rgb(0, 102, 255);
+  color: white;
+  width: 70px;
+  height: 40px;
+  margin-left: 20px;
+}
+
+.todo-item span {
+  font-size: 20px; 
+  font-weight: bold; 
+}
