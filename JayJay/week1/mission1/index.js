@@ -12,6 +12,9 @@ const checkPwInput = document.querySelector(".check_pw_input");
 const modal = document.getElementById("modal");
 const closeBtn = document.getElementById("closeBtn");
 
+if (nameBox && ageBox && emailBox && checkPwBox && passwordBox) {
+}
+
 signupBtn.addEventListener("click", () => {
   let isValidForm = true; //비활성화 여부 탐지
 
