@@ -1,0 +1,60 @@
+#root {
+  max-width: 1000px;
+  padding: 10px;
+  margin: 20px;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  box-sizing: border-box;
+}
+
+h3 {
+  margin-top: 0; 
+  margin-bottom: 30px; 
+}
+
+.openBtn {
+  z-index: -100;
+  background-color: none;
+  width: flex;
+  font-size : 13px;
+}
+
+.openModal {
+  position: fixed;
+  width: 400px;
+  height: 120px;
+  padding: 24px 16px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  border: 1px solid gray;
+  border-radius: 10px;
+  z-index: 2000;
+}
+
+.modal {
+  margin: auto;
+  height: 85%;
+}
+
+.closeModal {
+  display: flex;
+  justify-content: end;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.modalTitle {
+  margin: 0px;
+  width: 100%;
+}
+
+.modalText {
+  margin-top: 20px;
+  width: 100%;
+}
