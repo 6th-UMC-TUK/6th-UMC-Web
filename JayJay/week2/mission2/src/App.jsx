@@ -3,15 +3,19 @@ import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
 import { movies } from "./api/api";
+import MovieCard from "./components/MovieCard";
+import Description from "./components/Description";
 
 function App() {
-  const [isHover, setisHover] = useState(false);
   const [movieData, setMovieData] = useState(movies);
 
   return (
     <>
-      <div onMouseOver={() => setisHover(true)}>hi</div>
-      {movieData ? console.log(movieData) : ""}
+      <div className="movie-grid">
+        {movieData.results.map((movie, index) => (
+          <MovieCard key={movie.id} movie={movie} />
+        ))}
+      </div>
     </>
   );
 }
