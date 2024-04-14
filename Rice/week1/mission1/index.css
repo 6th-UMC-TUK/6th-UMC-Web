@@ -1,0 +1,148 @@
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #acd8e6;
+}
+.container {
+  padding: auto;
+  height: 600px;
+  width: 750px;
+  display: flex;
+  background-color: #dff0f5;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 120px;
+  border-radius: 2.5%;
+}
+.box {
+  height: 70px;
+  width: 300px;
+  display: flex;
+  justify-content: centers;
+  align-items: center;
+  flex-direction: column;
+}
+input {
+  width: 250px;
+  height: 20px;
+  border: solid 1px white;
+  background-color: #dff0f5;
+}
+.input-name {
+  text-align: left;
+  width: 250px;
+  padding-bottom: 5px;
+}
+.header {
+  font-size: 25px;
+  width: 300px;
+  border-bottom: solid white 1px;
+  text-align: center;
+  padding-bottom: 15px;
+  margin-bottom: 30px;
+}
+.join-btn {
+  background-color: #808080;
+  color: white;
+  width: 200px;
+  height: 38px;
+  border-radius: 10px;
+}
+
+.correct {
+  color: green;
+  text-align: left;
+  width: 250px;
+}
+.incorrect {
+  color: red;
+  text-align: left;
+  width: 250px;
+}
+#modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  width: 320px;
+  height: 150px;
+  margin: 0 auto;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  border: 2px solid gray;
+  border-radius: 10px;
+}
+
+.modal-title {
+  margin: 0px;
+}
+
+.modal-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.closebox {
+  width: 43px;
+  height: 23px;
+}
+
+#closeBtn {
+  width: 100%;
+  height: 100%;
+}
+
+.checkPw_correct {
+  color: green;
+  font-size: small;
+}
+
+.checkPw_error {
+  color: red;
+  font-size: small;
+}
+.password_correct {
+  color: green;
+  font-size: small;
+}
+
+.password_error {
+  color: red;
+  font-size: small;
+}
+.age_correct {
+  color: green;
+  font-size: small;
+}
+
+.age_error {
+  color: red;
+  font-size: small;
+}
+.email_correct {
+  color: green;
+  font-size: small;
+}
+
+.email_error {
+  color: red;
+  font-size: small;
+}
+.name_correct {
+  color: green;
+  font-size: small;
+}
+
+.name_error {
+  color: red;
+  font-size: small;
+}
