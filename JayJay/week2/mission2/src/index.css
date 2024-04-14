@@ -22,12 +22,14 @@ a:hover {
   color: #535bf2;
 }
 
+h3 {
+  margin: 0px;
+}
+
 body {
-  margin: 0;
+  margin: 0 auto;
   background-color: #747bff;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
+  min-width: 100vh;
   min-height: 100vh;
   padding: 1rem;
 }
