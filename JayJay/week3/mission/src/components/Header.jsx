@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom"; // Link 컴포넌트를 임포트합니다.
 import styled from "styled-components";
 
 const HeaderBox = styled.div`
@@ -34,8 +35,25 @@ const MovieCategory = styled.div`
 const CategoryList = styled.div`
   display: flex;
   align-items: center;
-  margin-right: 20px;
   height: 100%;
+  margin-right: 10px;
+`;
+
+const StyledLink = styled(Link)`
+  margin-right: 20px;
+  color: white;
+  text-decoration: none;
+
+  &:last-child {
+    margin-right: 0;
+  }
+
+  &:hover {
+    text-decoration: none;
+    color: white;
+    font-size: larger;
+    transition: font-size 0.2s ease; /* 글자 크기가 변경될 때 부드러운 전환 효과를 주기 위함입니다. */
+  }
 `;
 
 export default function Header() {
@@ -43,11 +61,13 @@ export default function Header() {
     <HeaderBox>
       <MainLogo>UMC MOVIE</MainLogo>
       <MovieCategory>
-        <CategoryList>회원가입</CategoryList>
-        <CategoryList>Popular</CategoryList>
-        <CategoryList>Now Playing</CategoryList>
-        <CategoryList>Top Rated</CategoryList>
-        <CategoryList>Upcoming</CategoryList>
+        <CategoryList>
+          <StyledLink to="/">회원가입</StyledLink>
+          <StyledLink to="/popular">Popular</StyledLink>
+          <StyledLink to="/now-playing">Now Playing</StyledLink>
+          <StyledLink to="/top-rated">Top Rated</StyledLink>
+          <StyledLink to="/upcoming">Upcoming</StyledLink>
+        </CategoryList>
       </MovieCategory>
     </HeaderBox>
   );
