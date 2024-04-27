@@ -9,7 +9,7 @@ const HeaderBox = styled.div`
   height: 70px;
   max-height: 70px;
   border-bottom: 1px solid black;
-  background-color: #5c6bc0;
+  background-color: #1a237e;
   color: white;
 `;
 

@@ -5,7 +5,6 @@ const SearchBox = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  background-color: #5c6bc0;
   font-size: larger;
   height: auto;
 `;

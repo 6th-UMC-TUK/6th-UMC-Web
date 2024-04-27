@@ -6,6 +6,7 @@ import Header from "./components/Header";
 import Banner from "./components/Banner";
 import MovieSearch from "./components/MovieSearch";
 import styled from "styled-components";
+import MainPage from "./components/MainPage";
 
 const Container = styled.div`
   display: flex;
@@ -14,22 +15,12 @@ const Container = styled.div`
   height: 100%;
 `;
 
-const MainContent = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  height: auto;
-`;
-
 function App() {
   return (
     <>
       <Container>
         <Header />
-        <MainContent>
-          <Banner />
-          <MovieSearch />
-        </MainContent>
+        <MainPage />
       </Container>
     </>
   );
