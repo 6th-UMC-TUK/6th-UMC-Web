@@ -18,6 +18,9 @@ const Container = styled.div`
   height: 100%;
 `;
 
+//d4e387dc7220639de4c49f1eff1f9123 : 발급받은 API 키
+//https://developer.themoviedb.org/reference/intro/getting-started: api 문서 링크
+
 function App() {
   return (
     <BrowserRouter>
