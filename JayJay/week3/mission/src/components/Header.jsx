@@ -14,7 +14,7 @@ const HeaderBox = styled.div`
   color: white;
 `;
 
-const MainLogo = styled.div`
+const MainLogo = styled(Link)`
   display: flex;
   align-items: center;
   font-size: medium;
@@ -22,6 +22,14 @@ const MainLogo = styled.div`
   padding: 10px;
   height: 100%;
   box-sizing: border-box;
+  color: white;
+
+  &:hover {
+    text-decoration: none;
+    color: white;
+    font-size: larger;
+    transition: font-size 0.2s ease;
+  }
 `;
 
 const MovieCategory = styled.div`
@@ -40,6 +48,7 @@ const CategoryList = styled.div`
 `;
 
 const StyledLink = styled(Link)`
+  //Link 컴포넌트 스타일링 따로해줌
   margin-right: 20px;
   color: white;
   text-decoration: none;
@@ -52,14 +61,14 @@ const StyledLink = styled(Link)`
     text-decoration: none;
     color: white;
     font-size: larger;
-    transition: font-size 0.2s ease; /* 글자 크기가 변경될 때 부드러운 전환 효과를 주기 위함입니다. */
+    transition: font-size 0.2s ease;
   }
 `;
 
 export default function Header() {
   return (
     <HeaderBox>
-      <MainLogo>UMC MOVIE</MainLogo>
+      <MainLogo to="/popular">UMC MOVIE</MainLogo>
       <MovieCategory>
         <CategoryList>
           <StyledLink to="/">회원가입</StyledLink>
