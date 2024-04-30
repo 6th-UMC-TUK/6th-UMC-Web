@@ -38,7 +38,6 @@ body {
 .movie-container.hoverd,
 .movie-container:hover {
   opacity: 0.5; /* 투명도 조절 */
-  position: relative;
 }
 
 .movie-overview-container {
@@ -48,10 +47,11 @@ body {
   display: flex;
   position: absolute;
   width: 250px;
-  margin: 16px;
+  margin-top: 10px;
   color: white;
   border-radius: 5px;
   box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.1);
+  top: 0px;
 }
 
 .description-title {
