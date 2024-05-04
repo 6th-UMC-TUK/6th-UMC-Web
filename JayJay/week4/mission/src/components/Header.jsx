@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom"; // Link 컴포넌트를 임포트합니다.
 import styled from "styled-components";
+import { useState } from "react";
 
 const HeaderBox = styled.div`
   display: flex;
@@ -66,12 +67,19 @@ const StyledLink = styled(Link)`
 `;
 
 export default function Header() {
+  const [loginClick, setLoginClick] = useState(false);
+  const onLoginclick = () => {
+    setLoginClick(!loginClick);
+  };
+
   return (
     <HeaderBox>
       <MainLogo to="/popular">UMC MOVIE</MainLogo>
       <MovieCategory>
         <CategoryList>
-          <StyledLink to="/">회원가입</StyledLink>
+          <StyledLink to="/" onClick={onLoginclick}>
+            {loginClick ? "로그인" : "로그아웃"}
+          </StyledLink>
           <StyledLink to="/popular">Popular</StyledLink>
           <StyledLink to="/now-playing">Now Playing</StyledLink>
           <StyledLink to="/top-rated">Top Rated</StyledLink>

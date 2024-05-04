@@ -1,5 +1,8 @@
 import React from "react";
 import styled from "styled-components";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import MovieDetailPage from "./MovieDetailPage";
 
 const MovieGrid = styled.div`
   width: 100%;
@@ -44,10 +47,18 @@ const MovieInformation = styled.div`
 `;
 
 export default function Movielist({ movies }) {
+  const navigate = useNavigate();
+
+  const handleMovieClick = (movie) => {
+    navigate(`/movie/${movie.title}`, { state: { movie } });
+  };
   return (
     <MovieGrid>
       {movies.map((movie) => (
-        <MovieCard key={movie.id}>
+        <MovieCard
+          key={movie.id} // `key`를 여기에 직접 적용
+          onClick={() => handleMovieClick(movie)}
+        >
           <MovieImage
             src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
             alt={movie.title}
