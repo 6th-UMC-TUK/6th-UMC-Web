@@ -1,0 +1,67 @@
+body {
+  background-color: #22254b;
+}
+
+.app-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.movie-container {
+  width: 250px;
+  margin: 16px;
+  background-color: #373b69;
+  color: white;
+  border-radius: 5px;
+  box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.1);
+}
+
+.movie-container img {
+  max-width: 100%;
+}
+
+.movie-info {
+  display: flex;
+  padding: 20px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.movie-info h4 {
+  margin: 0;
+}
+
+.movie-info span {
+  margin-left: 3px;
+}
+.movie-container.hoverd,
+.movie-container:hover {
+  opacity: 0.5; /* 투명도 조절 */
+}
+
+.movie-overview-container {
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  display: flex;
+  position: absolute;
+  width: 250px;
+  margin-top: 10px;
+  color: white;
+  border-radius: 5px;
+  box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.1);
+  top: 0px;
+}
+
+.description-title {
+  padding: 10px;
+}
+
+.movie-overview {
+  font-size: 0.8rem; /* 폰트 사이즈 줄이기 */
+  line-height: 1.2; /* 줄 간격 조정 */
+  padding: 10px; /* 내부 여백 조정 */
+  word-break: break-all; /* 요즘은 break-all를 씀 */
+  overflow-wrap: break-word; /* 오버플로우를 방지하기 위해 단어 내에서 줄바꿈 */
+}
