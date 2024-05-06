@@ -11,6 +11,7 @@ import NowPlayingPage from "./components/NowPlayingPage";
 import TopRatedPage from "./components/TopRatedPage";
 import Upcoming from "./components/Upcoming";
 import MovieDetailPage from "./components/MovieDetailPage";
+import NotFound from "./components/NotFound";
 
 const Container = styled.div`
   display: flex;
@@ -35,6 +36,7 @@ function App() {
           <Route path="/top-rated" element={<TopRatedPage />} />
           <Route path="/upcoming" element={<Upcoming />} />
           <Route path="/movie/:title" element={<MovieDetailPage />} />
+          <Route path="/*" element={<NotFound />} />
         </Routes>
       </Container>
     </BrowserRouter>
