@@ -4,7 +4,7 @@ import Header from "./Header";
 export default function HeaderWithRouting() {
   const location = useLocation();
 
-  // 영화 상세 페이지가 아니면 헤더를 렌더링합니다.
+  // 영화 상세 페이지가 아니면 Header 컴포넌트가 나오도록
   if (!location.pathname.startsWith("/movie/")) {
     return <Header />;
   }
