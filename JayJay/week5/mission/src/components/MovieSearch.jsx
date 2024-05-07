@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import { FaSearch } from "react-icons/fa";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 const SearchBox = styled.div`
   display: flex;
@@ -53,16 +55,93 @@ const StyledFaSearch = styled(FaSearch)`
   color: black;
 `;
 
+const SearchMovieResultsBox = styled.div`
+  width: 1200px;
+  height: auto;
+  margin: 0 auto;
+  padding: 10px;
+  box-sizing: border;
+`;
+
+const SearchMovieResults = styled.div`
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); // 4열 그리드
+  gap: 20px; // 각 항목 간격
+  width: 100%;
+  margin: 20px 0;
+`;
+
+const MovieCard = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+`;
+
+const MoviePoster = styled.img`
+  width: 100%;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+`;
+
+const MovieInfo = styled.div`
+  padding: 10px;
+  text-align: center;
+`;
+
 export default function MovieSearch() {
+  const [inputValue, setInputValue] = useState("");
+  const [movies, setMovies] = useState([]);
+
+  useEffect(() => {
+    if (!inputValue) return; // 입력 값이 없으면 검색하지 않음
+    const apiKey = "d4e387dc7220639de4c49f1eff1f9123";
+    const url = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${encodeURIComponent(
+      inputValue
+    )}&include_adult=false&language=en-US&page=1`;
+
+    const fetchMovies = async () => {
+      try {
+        const response = await axios.get(url);
+        setMovies(response.data.results);
+      } catch (error) {
+        console.error("Searching movies failed: ", error);
+      }
+    };
+
+    fetchMovies();
+  }, [inputValue]); // inputValue 변경 시에만 호출
+
+  const handleInput = (e) => {
+    setInputValue(e.currentTarget.value);
+  };
   return (
     <SearchBox>
       <SearchTitle>Find your Movies!</SearchTitle>
       <SearchInputBox>
-        <SearchInput />
+        <SearchInput onChange={handleInput} value={inputValue} />
         <SearchIconBox>
           <StyledFaSearch />
         </SearchIconBox>
       </SearchInputBox>
+      <SearchMovieResultsBox>
+        <SearchMovieResults>
+          {movies.map((movie) => (
+            <MovieCard key={movie.id}>
+              <MoviePoster
+                src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                alt={movie.title}
+              />
+              <MovieInfo>
+                <h3>{movie.title}</h3>
+                <p>⭐ {movie.vote_average}</p>
+              </MovieInfo>
+            </MovieCard>
+          ))}
+        </SearchMovieResults>
+      </SearchMovieResultsBox>
     </SearchBox>
   );
 }
