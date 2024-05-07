@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { FaSearch } from "react-icons/fa";
 
 const SearchBox = styled.div`
   display: flex;
@@ -22,6 +23,7 @@ const SearchTitle = styled.div`
 const SearchInputBox = styled.div`
   display: flex;
   justify-content: center;
+  align-items: center;
   width: 100%;
 `;
 
@@ -35,12 +37,31 @@ const SearchInput = styled.input`
   font-size: medium;
 `;
 
+const SearchIconBox = styled.div`
+  width: 40px;
+  height: 40px;
+  margin-left: 20px;
+  border-radius: 50%;
+  padding: 5px;
+  box-sizing: border-box;
+  background-color: yellow;
+`;
+
+const StyledFaSearch = styled(FaSearch)`
+  width: 100%;
+  height: 100%;
+  color: black;
+`;
+
 export default function MovieSearch() {
   return (
     <SearchBox>
       <SearchTitle>Find your Movies!</SearchTitle>
       <SearchInputBox>
         <SearchInput />
+        <SearchIconBox>
+          <StyledFaSearch />
+        </SearchIconBox>
       </SearchInputBox>
     </SearchBox>
   );
