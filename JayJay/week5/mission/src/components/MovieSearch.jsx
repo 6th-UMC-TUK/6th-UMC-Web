@@ -27,6 +27,7 @@ const SearchInputBox = styled.div`
   justify-content: center;
   align-items: center;
   width: 100%;
+  margin-bottom: 20px;
 `;
 
 const SearchInput = styled.input`
@@ -56,11 +57,18 @@ const StyledFaSearch = styled(FaSearch)`
 `;
 
 const SearchMovieResultsBox = styled.div`
-  width: 1200px;
-  height: auto;
+  width: ${(props) =>
+    props.movies && props.movies.length > 0 ? "1200px" : "0"};
+  height: ${(props) =>
+    props.movies && props.movies.length > 0 ? "800px" : "0"};
   margin: 0 auto;
-  padding: 10px;
-  box-sizing: border;
+  padding: 20px;
+  box-sizing: border-box;
+  overflow-y: ${(props) =>
+    props.movies && props.movies.length > 0 ? "scroll" : "hidden"};
+  background-color: ${(props) =>
+    props.movies && props.movies.length ? "black" : "transparent"};
+  transition: all 0.5s ease-in; // 너비, 높이, 배경색의 변화에 대한 트랜지션 적용
 `;
 
 const SearchMovieResults = styled.div`
@@ -96,7 +104,10 @@ export default function MovieSearch() {
   const [movies, setMovies] = useState([]);
 
   useEffect(() => {
-    if (!inputValue) return; // 입력 값이 없으면 검색하지 않음
+    if (!inputValue) {
+      setMovies([]);
+      return;
+    }
     const apiKey = "d4e387dc7220639de4c49f1eff1f9123";
     const url = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${encodeURIComponent(
       inputValue
@@ -126,7 +137,7 @@ export default function MovieSearch() {
           <StyledFaSearch />
         </SearchIconBox>
       </SearchInputBox>
-      <SearchMovieResultsBox>
+      <SearchMovieResultsBox movies={movies}>
         <SearchMovieResults>
           {movies.map((movie) => (
             <MovieCard key={movie.id}>
