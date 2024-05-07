@@ -68,7 +68,7 @@ const SearchMovieResultsBox = styled.div`
     props.movies && props.movies.length > 0 ? "scroll" : "hidden"};
   background-color: ${(props) =>
     props.movies && props.movies.length ? "black" : "transparent"};
-  transition: all 0.5s ease-in; // 너비, 높이, 배경색의 변화에 대한 트랜지션 적용
+  transition: all 0.5s ease-in; // 너비, 높이, 배경색의 변화에 대한 트랜지션 적용..
 `;
 
 const SearchMovieResults = styled.div`
@@ -82,8 +82,10 @@ const SearchMovieResults = styled.div`
 const MovieCard = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
   width: 100%;
+  height: 100%;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 `;
@@ -95,8 +97,19 @@ const MoviePoster = styled.img`
 `;
 
 const MovieInfo = styled.div`
-  padding: 10px;
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+`;
+
+const MovieInfoTitle = styled.h3`
+  font-size: medium;
+`;
+
+const MovieInfoAverage = styled.p`
+  width: auto;
+  height: auto;
 `;
 
 export default function MovieSearch() {
@@ -146,8 +159,8 @@ export default function MovieSearch() {
                 alt={movie.title}
               />
               <MovieInfo>
-                <h3>{movie.title}</h3>
-                <p>⭐ {movie.vote_average}</p>
+                <MovieInfoTitle>{movie.title}</MovieInfoTitle>
+                <MovieInfoAverage>⭐ {movie.vote_average}</MovieInfoAverage>
               </MovieInfo>
             </MovieCard>
           ))}
