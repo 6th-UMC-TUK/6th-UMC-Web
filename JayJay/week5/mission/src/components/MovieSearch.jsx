@@ -69,6 +69,21 @@ const SearchMovieResultsBox = styled.div`
   background-color: ${(props) =>
     props.movies && props.movies.length ? "black" : "transparent"};
   transition: all 0.5s ease-in; // 너비, 높이, 배경색의 변화에 대한 트랜지션 적용..
+
+  // 스크롤바 스타일링.. 이번에 chatgpt를 통해 첨 알게된 속성
+  &::-webkit-scrollbar {
+    width: 8px; // 스크롤바의 너비 설정
+  }
+  &::-webkit-scrollbar-track {
+    background: transparent; // 스크롤바 트랙의 배경색 설정
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: yellow; // 스크롤바 핸들의 색상을 노란색으로 설정
+    border-radius: 4px; // 스크롤바 핸들의 모서리를 둥글게 처리
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    background-color: #b5b500; // 스크롤바 핸들에 마우스 호버 시 색상 변경
+  }
 `;
 
 const SearchMovieResults = styled.div`
@@ -76,6 +91,7 @@ const SearchMovieResults = styled.div`
   grid-template-columns: repeat(4, 1fr); // 4열 그리드
   gap: 20px; // 각 항목 간격
   width: 100%;
+  height: 100%;
   margin: 20px 0;
 `;
 
@@ -92,6 +108,7 @@ const MovieCard = styled.div`
 
 const MoviePoster = styled.img`
   width: 100%;
+  height: 100%;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
 `;
