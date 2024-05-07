@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { FaSearch } from "react-icons/fa";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import API_KEY from "../../config/secrets";
 
 const SearchBox = styled.div`
   display: flex;
@@ -138,8 +139,7 @@ export default function MovieSearch() {
       setMovies([]);
       return;
     }
-    const apiKey = "d4e387dc7220639de4c49f1eff1f9123";
-    const url = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${encodeURIComponent(
+    const url = `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${encodeURIComponent(
       inputValue
     )}&include_adult=false&language=en-US&page=1`;
 
