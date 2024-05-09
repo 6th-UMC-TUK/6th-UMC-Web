@@ -10,7 +10,14 @@ export default function HeaderWithRouting() {
   }
 
   //여기서 좀 헷갈렸네..some이랑 every 차이 알면 좋음
-  const routes = ["/", "/popular", "/now-playing", "/top-rated", "/upcoming"];
+  const routes = [
+    "/",
+    "/popular",
+    "/now-playing",
+    "/top-rated",
+    "/upcoming",
+    "/signup",
+  ];
   const match = routes.some((route) =>
     matchPath({ path: route, end: route === "/" }, location.pathname)
   );

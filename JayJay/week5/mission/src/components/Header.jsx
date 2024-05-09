@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom"; // Link 컴포넌트를 임포트합니다.
+import { Link, useNavigate, useLocation } from "react-router-dom"; // Link 컴포넌트를 임포트합니다.
 import styled from "styled-components";
 import { useState } from "react";
 
@@ -51,7 +51,8 @@ const CategoryList = styled.div`
 const StyledLink = styled(Link)`
   //Link 컴포넌트 스타일링 따로해줌
   margin-right: 20px;
-  color: white;
+  color: ${(prop) => (prop.param === "/signup" ? "yellow" : "white")};
+  font-weight: ${(prop) => (prop.param === "/signup" ? "bold" : "")};
   text-decoration: none;
 
   &:last-child {
@@ -62,23 +63,20 @@ const StyledLink = styled(Link)`
     text-decoration: none;
     color: white;
     font-size: larger;
+    font-weight: bold;
     transition: font-size 0.2s ease;
   }
 `;
 
 export default function Header() {
-  const [loginClick, setLoginClick] = useState(false);
-  const onLoginclick = () => {
-    setLoginClick(!loginClick);
-  };
-
+  const location = useLocation();
   return (
     <HeaderBox>
       <MainLogo to="/popular">UMC MOVIE</MainLogo>
       <MovieCategory>
         <CategoryList>
-          <StyledLink to="/" onClick={onLoginclick}>
-            {loginClick ? "로그인" : "로그아웃"}
+          <StyledLink to="/signup" param={location.pathname}>
+            회원가입
           </StyledLink>
           <StyledLink to="/popular">Popular</StyledLink>
           <StyledLink to="/now-playing">Now Playing</StyledLink>
