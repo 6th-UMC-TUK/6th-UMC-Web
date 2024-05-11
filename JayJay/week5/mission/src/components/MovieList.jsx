@@ -16,7 +16,7 @@ const MovieGrid = styled.div`
   padding: 20px 60px;
   margin: 0 auto;
   box-sizing: border-box;
-  background-color: #04155a;
+  background-color: #202142;
   color: white;
 `;
 

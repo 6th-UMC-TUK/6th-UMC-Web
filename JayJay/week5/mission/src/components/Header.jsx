@@ -9,9 +9,9 @@ const HeaderBox = styled.div`
   align-items: center;
   width: 100%;
   height: 70px;
-  max-height: 70px;
+  min-height: 70px;
   border-bottom: 1px solid black;
-  background-color: #1a237e;
+  background-color: #101021;
   color: white;
 `;
 
@@ -72,7 +72,7 @@ export default function Header() {
   const location = useLocation();
   return (
     <HeaderBox>
-      <MainLogo to="/popular">UMC MOVIE</MainLogo>
+      <MainLogo to="/">UMC MOVIE</MainLogo>
       <MovieCategory>
         <CategoryList>
           <StyledLink to="/signup" param={location.pathname}>

@@ -18,7 +18,8 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 100%;
+  height: 100vh;
+  background-color: #202142;
 `;
 
 //d4e387dc7220639de4c49f1eff1f9123 : 발급받은 API 키
