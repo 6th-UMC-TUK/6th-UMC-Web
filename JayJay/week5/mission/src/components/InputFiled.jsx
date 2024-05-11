@@ -21,6 +21,26 @@ const ErrorMessage = styled.div`
   color: red;
 `;
 
+const getErrorMessage = (label, value) => {
+  if (label === "비밀번호") {
+    if (value.length < 4) return "비밀번호는 최소 4자리 이상이어야 합니다";
+    if (value.length > 12) return "비밀번호는 최대 12자리까지 가능합니다";
+    if (!/^(?=.*[a-zA-Z])(?=.*\d)(?=.*[\W_]).+$/.test(value))
+      return "영어, 숫자, 특수문자를 모두 조합해서 비밀번호를 작성해야 합니다";
+  } else if (label === "이메일") {
+    return "이메일 형식에 맞게 다시 입력해주세요";
+  } else if (label === "나이") {
+    if (isNaN(parseInt(value, 10))) return "나이는 숫자로 입력해주세요";
+    if (parseInt(value, 10) < 19)
+      return "우리 영화 사이트는 19살 이상만 가입 가능합니다";
+    if (!Number.isInteger(parseFloat(value)))
+      return "나이는 소수가 될 수 없습니다";
+    if (parseInt(value, 10) <= 0) return "나이는 음수가 될 수 없습니다";
+  } else {
+    return `${label}을(를) 입력해주세요`;
+  }
+};
+
 export default function InputField({ label, value, onChange, isValid }) {
   return (
     <>
@@ -29,13 +49,7 @@ export default function InputField({ label, value, onChange, isValid }) {
         value={value}
         onChange={onChange}
       />
-      {!isValid && (
-        <ErrorMessage>
-          {label === "비밀번호확인"
-            ? "비밀번호를 다시 확인해주세요!"
-            : `${label}을 입력해주세요`}
-        </ErrorMessage>
-      )}
+      {!isValid && <ErrorMessage>{getErrorMessage(label, value)}</ErrorMessage>}
     </>
   );
 }

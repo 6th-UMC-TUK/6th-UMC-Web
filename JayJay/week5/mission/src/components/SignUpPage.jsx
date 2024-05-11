@@ -65,10 +65,32 @@ export default function SignUpPage() {
     비밀번호확인: true,
   });
 
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // 간단한 이메일 검증 정규 표현식
+
   const handleInputChange = (e, fieldName) => {
     const value = e.target.value;
     setForm((prev) => ({ ...prev, [fieldName]: value }));
-    setValidationState((prev) => ({ ...prev, [fieldName]: !!value }));
+
+    let isValid = true;
+    if (fieldName === "비밀번호") {
+      const minLength = 4;
+      const maxLength = 12;
+      const regex = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[\W_]).+$/; // 영문, 숫자, 특수문자 조합
+
+      isValid =
+        value.length >= minLength &&
+        value.length <= maxLength &&
+        regex.test(value);
+    } else if (fieldName === "이메일") {
+      isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+    } else if (fieldName === "나이") {
+      const age = parseInt(value, 10);
+      isValid = !isNaN(age) && age >= 19 && Number.isInteger(age) && age > 0;
+    } else {
+      isValid = !!value;
+    }
+
+    setValidationState((prev) => ({ ...prev, [fieldName]: isValid }));
   };
 
   const submitBtnClick = () => {
