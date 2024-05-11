@@ -1,6 +1,7 @@
 import { useState } from "react";
 import styled from "styled-components";
 import InputField from "./InputFiled";
+import { useNavigate } from "react-router-dom";
 
 const SignUpPageWrapper = styled.div`
   display: flex;
@@ -49,12 +50,13 @@ const ErrorMessage = styled.div`
 `;
 
 export default function SignUpPage() {
+  const navigate = useNavigate();
   const [form, setForm] = useState({
     이름: "",
     이메일: "",
     나이: "",
     비밀번호: "",
-    비밀번호확인: undefined,
+    비밀번호확인: "",
   });
 
   const [validationState, setValidationState] = useState({
@@ -65,14 +67,14 @@ export default function SignUpPage() {
     비밀번호확인: true,
   });
 
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // 간단한 이메일 검증 정규 표현식
-
   const handleInputChange = (e, fieldName) => {
     const value = e.target.value;
     setForm((prev) => ({ ...prev, [fieldName]: value }));
 
-    let isValid = true;
-    if (fieldName === "비밀번호") {
+    //유효성 검사 로직을 여기서 작성하고 InputField에 넘겨서
+    //에러메시지를 띄우는 로직.. 어렵다
+    let isValid = false;
+    if (fieldName === "비밀번호" || fieldName === "비밀번호확인") {
       const minLength = 4;
       const maxLength = 12;
       const regex = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[\W_]).+$/; // 영문, 숫자, 특수문자 조합
@@ -81,24 +83,33 @@ export default function SignUpPage() {
         value.length >= minLength &&
         value.length <= maxLength &&
         regex.test(value);
+      if (fieldName === "비밀번호확인") {
+        isValid = isValid && value === form.비밀번호;
+      }
     } else if (fieldName === "이메일") {
-      isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // 간단한 이메일 검증 정규 표현식
+      isValid = emailRegex.test(value);
     } else if (fieldName === "나이") {
       const age = parseInt(value, 10);
       isValid = !isNaN(age) && age >= 19 && Number.isInteger(age) && age > 0;
-    } else {
-      isValid = !!value;
+    } else if (fieldName === "이름") {
+      isValid = value.trim() !== "";
     }
 
     setValidationState((prev) => ({ ...prev, [fieldName]: isValid }));
   };
 
+  //이번 주차에 다시 심화 학습하게된 Object.values, Object.keys
+
   const submitBtnClick = () => {
-    const newValidationState = {};
-    Object.keys(form).forEach((key) => {
-      newValidationState[key] = !!form[key]; // form의 값이 존재하는지 체크
-    });
-    setValidationState(newValidationState);
+    if (Object.values(validationState).every(Boolean)) {
+      // 모든 유효성 검사 결과가 true인지 확인
+      console.log(form);
+      alert("회원가입이 완료되었습니다!");
+      navigate("/"); // 홈페이지로 이동
+    } else {
+      alert("모든 필드의 유효성 검사를 통과해야 합니다.");
+    }
   };
 
   return (
@@ -112,6 +123,7 @@ export default function SignUpPage() {
             value={form[key]}
             onChange={(e) => handleInputChange(e, key)}
             isValid={validationState[key]}
+            form={form}
           />
         ))}
         <SignUpButton onClick={submitBtnClick}>제출하기</SignUpButton>
