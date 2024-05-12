@@ -51,7 +51,14 @@ const getErrorMessage = (label, value, form) => {
   }
 };
 
-export default function InputField({ label, value, onChange, isValid, form }) {
+export default function InputField({
+  label,
+  value,
+  onChange,
+  isValid,
+  form,
+  isTouched,
+}) {
   return (
     <>
       <SignUpInfoInput
@@ -59,7 +66,7 @@ export default function InputField({ label, value, onChange, isValid, form }) {
         value={value}
         onChange={onChange}
       />
-      {!isValid && (
+      {!isValid && isTouched && (
         <ErrorMessage>{getErrorMessage(label, value, form)}</ErrorMessage>
       )}
     </>

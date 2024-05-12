@@ -60,20 +60,26 @@ export default function SignUpPage() {
   });
 
   const [validationState, setValidationState] = useState({
-    이름: true,
-    이메일: true,
-    나이: true,
-    비밀번호: true,
-    비밀번호확인: true,
+    이름: false,
+    이메일: false,
+    나이: false,
+    비밀번호: false,
+    비밀번호확인: false,
   });
 
-  const handleInputChange = (e, fieldName) => {
-    const value = e.target.value;
-    setForm((prev) => ({ ...prev, [fieldName]: value }));
+  //수정 여부 판단하는 상태 관리 !!
+  const [touched, setTouched] = useState({
+    이름: false,
+    이메일: false,
+    나이: false,
+    비밀번호: false,
+    비밀번호확인: false,
+  });
 
+  const validateField = (fieldName, value) => {
+    let isValid = false;
     //유효성 검사 로직을 여기서 작성하고 InputField에 넘겨서
     //에러메시지를 띄우는 로직.. 어렵다
-    let isValid = false;
     if (fieldName === "비밀번호" || fieldName === "비밀번호확인") {
       const minLength = 4;
       const maxLength = 12;
@@ -95,20 +101,30 @@ export default function SignUpPage() {
     } else if (fieldName === "이름") {
       isValid = value.trim() !== "";
     }
+    return isValid; // 추가: 유효성 검사 결과 반환
+  };
 
+  const handleInputChange = (e, fieldName) => {
+    const value = e.target.value;
+    setForm((prev) => ({ ...prev, [fieldName]: value }));
+
+    let isValid = validateField(fieldName, value); // 유효성 검사 로직을 함수로 빼기
     setValidationState((prev) => ({ ...prev, [fieldName]: isValid }));
+    setTouched((prev) => ({ ...prev, [fieldName]: true }));
   };
 
   //이번 주차에 다시 심화 학습하게된 Object.values, Object.keys
 
   const submitBtnClick = () => {
-    if (Object.values(validationState).every(Boolean)) {
-      // 모든 유효성 검사 결과가 true인지 확인
+    if (
+      Object.values(validationState).every(Boolean) &&
+      Object.values(touched).every(Boolean)
+    ) {
       console.log(form);
       alert("회원가입이 완료되었습니다!");
-      navigate("/"); // 홈페이지로 이동
+      navigate("/");
     } else {
-      alert("모든 필드의 유효성 검사를 통과해야 합니다.");
+      alert("모든 필드를 올바르게 채워주세요.");
     }
   };
 
@@ -123,6 +139,7 @@ export default function SignUpPage() {
             value={form[key]}
             onChange={(e) => handleInputChange(e, key)}
             isValid={validationState[key]}
+            isTouched={touched[key]}
             form={form}
           />
         ))}
