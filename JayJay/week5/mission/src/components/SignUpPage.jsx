@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
-import InputField from "./InputFiled";
+import InputField from "./InputField";
 import { useNavigate } from "react-router-dom";
 
 const SignUpPageWrapper = styled.div`
