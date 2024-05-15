@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom"; 
 import styled from "styled-components";
 
 const MovieGrid = styled.div`
@@ -31,29 +32,30 @@ const MovieInformation = styled.div`
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-  width: 210px; /* 가로 크기를 300px로 고정 */
-  height: 70px; /* 세로 크기를 100px로 고정 */
+  width: 210px;
+  height: 70px;
   border: 1px solid gray;
   box-sizing: border-box;
   padding: 10px;
   background-color: #545196;
 `;
 
-export default function Movielist({ movies }) {
+export default function MovieList({ movies }) {
   return (
     <MovieGrid>
       {movies.map((movie) => (
-        <MovieCard key={movie.id}>
-          <MovieImage
-            src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
-            alt={movie.title}
-          />
-          <MovieInformation>
-            <h4>{movie.title}</h4>
-            {/* 소수점 첫 번째 자리까지 반올림하여 표시 */}
-            <h4>{parseFloat(movie.vote_average).toFixed(1)}</h4>
-          </MovieInformation>
-        </MovieCard>
+        <Link to={`/movie/${movie.id}`} key={movie.id}>
+          <MovieCard>
+            <MovieImage
+              src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
+              alt={movie.title}
+            />
+            <MovieInformation>
+              <h4>{movie.title}</h4>
+              <h4>{parseFloat(movie.vote_average).toFixed(1)}</h4>
+            </MovieInformation>
+          </MovieCard>
+        </Link>
       ))}
     </MovieGrid>
   );

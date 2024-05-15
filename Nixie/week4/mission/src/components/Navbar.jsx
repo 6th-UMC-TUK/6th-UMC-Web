@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { Link } from "react-router-dom";
+import styled from "styled-components";
 
 const NavMenuItem = styled.span`
   color: #fff;
@@ -39,7 +39,7 @@ const NavMenu = styled.div`
 `;
 
 const Navbar = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
 
   const toggleLogin = () => {
     setIsLoggedIn(!isLoggedIn);
