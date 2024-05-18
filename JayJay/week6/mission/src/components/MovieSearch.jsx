@@ -158,7 +158,7 @@ export default function MovieSearch() {
   const [inputValue, setInputValue] = useState("");
   const [movies, setMovies] = useState([]);
   const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
@@ -171,30 +171,31 @@ export default function MovieSearch() {
       searchQuery
     )}&include_adult=false&language=en-US&page=1`;
 
-    setLoading(true); // 로딩 시작
-
     try {
       const response = await axios.get(url);
       setMovies(response.data.results);
-      setLoading(false); // 로딩 상태를 1초 후에 false로 변경
-      setError(null); // 이전 오류를 제거
+      setLoading(false);
+      setError(null);
     } catch (error) {
       console.error("Searching movies failed: ", error);
       setError("영화를 검색하는 중에 문제가 발생했습니다.");
+      setLoading(false);
     }
   }, []);
 
   useEffect(() => {
     const debounce = setTimeout(() => {
       if (inputValue) {
+        setLoading(true);
         fetchMovies(inputValue);
       } else {
         setMovies([]);
+        setLoading(false);
       }
     }, 600);
 
     return () => clearTimeout(debounce);
-  }, [inputValue]);
+  }, [inputValue, fetchMovies]);
 
   const handleInput = (e) => {
     setInputValue(e.currentTarget.value);
@@ -210,7 +211,7 @@ export default function MovieSearch() {
         </SearchIconBox>
       </SearchInputBox>
       <SearchMovieResultsBox movies={movies}>
-        {loading && movies.length > 0 ? (
+        {loading ? (
           <SearchLoading>로딩 중입니다..</SearchLoading> // 로딩 중일 때 로딩 메시지 표시
         ) : (
           <SearchMovieResults>
