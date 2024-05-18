@@ -211,7 +211,7 @@ export default function MovieSearch() {
         </SearchIconBox>
       </SearchInputBox>
       <SearchMovieResultsBox movies={movies}>
-        {loading ? (
+        {loading && movies.length > 0 ? (
           <SearchLoading>로딩 중입니다..</SearchLoading> // 로딩 중일 때 로딩 메시지 표시
         ) : (
           <SearchMovieResults>
