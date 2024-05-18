@@ -39,17 +39,17 @@ const NavMenu = styled.div`
 `;
 
 const Navbar = () => {
-  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
+  // const [isLoggedIn, setIsLoggedIn] = React.useState(false);
 
-  const toggleLogin = () => {
-    setIsLoggedIn(!isLoggedIn);
-  };
+  // const toggleLogin = () => {
+  //   setIsLoggedIn(!isLoggedIn);
+  // };
 
-  const loginText = isLoggedIn ? '로그아웃' : '로그인';
+  // const loginText = isLoggedIn ? '로그아웃' : '로그인';
 
-  const handleClick = () => {
-    toggleLogin();
-  };
+  // const handleClick = () => {
+  //   toggleLogin();
+  // };
 
   return (
     <NavbarWrapper>
@@ -57,7 +57,9 @@ const Navbar = () => {
         <Logo>UMC movie</Logo>
       </Link>
       <NavMenu>
-        <NavMenuItem onClick={handleClick}><Logo>{loginText}</Logo></NavMenuItem>
+        <NavMenuItem>
+          <Link to="/signup"><Logo>회원가입</Logo></Link>
+        </NavMenuItem>
         <NavMenuItem><Link to="/popular"><Logo>Popular</Logo></Link></NavMenuItem>
         <NavMenuItem><Link to="/now-playing"><Logo>Now Playing</Logo></Link></NavMenuItem>
         <NavMenuItem><Link to="/top-rated"><Logo>Top Rated</Logo></Link></NavMenuItem>
