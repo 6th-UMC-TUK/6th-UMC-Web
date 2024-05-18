@@ -5,6 +5,8 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import API_KEY from "../../config/secrets";
 import { useCallback } from "react";
+import { useNavigate } from "react-router-dom";
+import Loading from "./Loading";
 
 const SearchBox = styled.div`
   display: flex;
@@ -59,22 +61,28 @@ const StyledFaSearch = styled(FaSearch)`
 `;
 
 const SearchMovieResultsBox = styled.div`
+  position: relative;
   width: ${(props) =>
-    props.movies && props.movies.length > 0 ? "1200px" : "0"};
+    props.movies && props.movies.length > 0 ? "1100px" : "0"};
   height: ${(props) =>
-    props.movies && props.movies.length > 0 ? "800px" : "0"};
+    props.movies && props.movies.length > 0 ? "900px" : "0"};
   margin: 0 auto;
   padding: 20px;
   box-sizing: border-box;
   overflow-y: ${(props) =>
     props.movies && props.movies.length > 0 ? "scroll" : "hidden"};
   background-color: ${(props) =>
-    props.movies && props.movies.length ? "black" : "transparent"};
-  transition: all 0.5s ease-in; // 너비, 높이, 배경색의 변화에 대한 트랜지션 적용..
+    props.movies && props.movies.length > 0 ? "black" : "transparent"};
+  transition: all 0.5s ease-in;
 
-  // 스크롤바 스타일링.. 이번에 chatgpt를 통해 첨 알게된 속성
+  // 스크롤바 스타일링
   &::-webkit-scrollbar {
-    width: 8px; // 스크롤바의 너비 설정
+    width: ${(props) =>
+      props.movies && props.movies.length > 0
+        ? "8px"
+        : "0"}; // 스크롤바의 너비 설정
+    height: ${(props) =>
+      props.movies && props.movies.length > 0 ? "8px" : "0"};
   }
   &::-webkit-scrollbar-track {
     background: transparent; // 스크롤바 트랙의 배경색 설정
@@ -93,8 +101,9 @@ const SearchMovieResults = styled.div`
   grid-template-columns: repeat(4, 1fr); // 4열 그리드
   gap: 20px; // 각 항목 간격
   width: 100%;
-  height: 100%;
-  margin: 20px 0;
+  height: 50%;
+  padding: 5px;
+  box-sizing: border-box;
 `;
 
 const MovieCard = styled.div`
@@ -131,20 +140,44 @@ const MovieInfoAverage = styled.p`
   height: auto;
 `;
 
+const SearchLoading = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  color: white;
+  font-size: larger;
+`;
+
 export default function MovieSearch() {
   const [inputValue, setInputValue] = useState("");
   const [movies, setMovies] = useState([]);
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  const navigate = useNavigate();
+
+  const movieSearchClick = (movie) => {
+    navigate(`/movie/${movie.id}`, { state: { movie } });
+  };
 
   const fetchMovies = useCallback(async (searchQuery) => {
     const url = `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${encodeURIComponent(
       searchQuery
     )}&include_adult=false&language=en-US&page=1`;
 
+    setLoading(true); // 로딩 시작
+
     try {
       const response = await axios.get(url);
       setMovies(response.data.results);
-      setError(null); // Clear previous errors
+      setLoading(false); // 로딩 상태를 1초 후에 false로 변경
+      setError(null); // 이전 오류를 제거
     } catch (error) {
       console.error("Searching movies failed: ", error);
       setError("영화를 검색하는 중에 문제가 발생했습니다.");
@@ -158,14 +191,15 @@ export default function MovieSearch() {
       } else {
         setMovies([]);
       }
-    }, 300);
+    }, 600);
 
     return () => clearTimeout(debounce);
-  }, [inputValue, fetchMovies]);
+  }, [inputValue]);
 
   const handleInput = (e) => {
     setInputValue(e.currentTarget.value);
   };
+
   return (
     <SearchBox>
       <SearchTitle>Find your Movies!</SearchTitle>
@@ -176,20 +210,24 @@ export default function MovieSearch() {
         </SearchIconBox>
       </SearchInputBox>
       <SearchMovieResultsBox movies={movies}>
-        <SearchMovieResults>
-          {movies.map((movie) => (
-            <MovieCard key={movie.id}>
-              <MoviePoster
-                src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-                alt={movie.title}
-              />
-              <MovieInfo>
-                <MovieInfoTitle>{movie.title}</MovieInfoTitle>
-                <MovieInfoAverage>⭐ {movie.vote_average}</MovieInfoAverage>
-              </MovieInfo>
-            </MovieCard>
-          ))}
-        </SearchMovieResults>
+        {loading && movies.length > 0 ? (
+          <SearchLoading>로딩 중입니다..</SearchLoading> // 로딩 중일 때 로딩 메시지 표시
+        ) : (
+          <SearchMovieResults>
+            {movies.map((movie) => (
+              <MovieCard key={movie.id} onClick={() => movieSearchClick(movie)}>
+                <MoviePoster
+                  src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                  alt={movie.title}
+                />
+                <MovieInfo>
+                  <MovieInfoTitle>{movie.title}</MovieInfoTitle>
+                  <MovieInfoAverage>⭐ {movie.vote_average}</MovieInfoAverage>
+                </MovieInfo>
+              </MovieCard>
+            ))}
+          </SearchMovieResults>
+        )}
       </SearchMovieResultsBox>
     </SearchBox>
   );
