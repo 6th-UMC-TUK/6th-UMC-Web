@@ -50,7 +50,7 @@ export default function Movielist({ movies }) {
   const navigate = useNavigate();
 
   const handleMovieClick = (movie) => {
-    navigate(`/movie/${movie.title}`, { state: { movie } });
+    navigate(`/movie/${movie.id}`, { state: { movie } });
   };
   return (
     <MovieGrid>
