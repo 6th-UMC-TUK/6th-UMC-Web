@@ -4,6 +4,7 @@ import { FaSearch } from "react-icons/fa";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import API_KEY from "../../config/secrets";
+import { useCallback } from "react";
 
 const SearchBox = styled.div`
   display: flex;
@@ -133,30 +134,34 @@ const MovieInfoAverage = styled.p`
 export default function MovieSearch() {
   const [inputValue, setInputValue] = useState("");
   const [movies, setMovies] = useState([]);
+  const [error, setError] = useState(null);
 
-  useEffect(() => {
-    if (!inputValue) {
-      setMovies([]);
-      return;
-    }
+  const fetchMovies = useCallback(async (searchQuery) => {
     const url = `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${encodeURIComponent(
-      inputValue
+      searchQuery
     )}&include_adult=false&language=en-US&page=1`;
 
-    const fetchMovies = async () => {
-      try {
-        const debounce = setTimeout(async () => {
-          const response = await axios.get(url);
-          setMovies(response.data.results);
-        }, 400);
-        return () => clearTimeout(debounce);
-      } catch (error) {
-        console.error("Searching movies failed: ", error);
-      }
-    };
+    try {
+      const response = await axios.get(url);
+      setMovies(response.data.results);
+      setError(null); // Clear previous errors
+    } catch (error) {
+      console.error("Searching movies failed: ", error);
+      setError("영화를 검색하는 중에 문제가 발생했습니다.");
+    }
+  }, []);
 
-    fetchMovies();
-  }, [inputValue]); // inputValue 변경 시에만 호출
+  useEffect(() => {
+    const debounce = setTimeout(() => {
+      if (inputValue) {
+        fetchMovies(inputValue);
+      } else {
+        setMovies([]);
+      }
+    }, 300);
+
+    return () => clearTimeout(debounce);
+  }, [inputValue, fetchMovies]);
 
   const handleInput = (e) => {
     setInputValue(e.currentTarget.value);
