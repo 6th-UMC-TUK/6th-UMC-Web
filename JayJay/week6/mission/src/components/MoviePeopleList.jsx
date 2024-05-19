@@ -49,7 +49,8 @@ export default function MoviePeopleList({ movieId }) {
         const response = await axios.get(url);
         const combinedPeople = response.data.cast.concat(response.data.crew);
 
-        // Check for duplicate IDs and handle them
+        // 객체 프로퍼티 개념이용하고 새로운 uniqueId 속성을 추가해주는거
+        // 출연진 제작진 배열의 각 요소는 하나하나는 객체로 이루어짐
         const uniquePeople = combinedPeople.map((person, index) => ({
           ...person,
           uniqueId: person.id + "-" + index,
