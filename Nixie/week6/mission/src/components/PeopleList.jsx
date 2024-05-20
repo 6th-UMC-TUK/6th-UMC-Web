@@ -56,7 +56,8 @@ export default function MoviePeopleList({ movieId }) {
       {people.map((person, index) => (
         <PersonCard key={person.id + "-" + index}>
           <PersonImage
-            src={person.profile_path ? `https://image.tmdb.org/t/p/w200${person.profile_path}` : "/path/to/default/image.png"}
+            src={person.profile_path ? `https://image.tmdb.org/t/p/w200${person.profile_path}` :
+              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSz7ztleRwzXhFdiwBYqZ8cib9RvEsukVVUS3niN1YQ&s"}  
             alt={person.name}
           />
           <PersonName>{person.name}</PersonName>
