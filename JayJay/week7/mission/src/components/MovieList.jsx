@@ -5,11 +5,11 @@ import { useNavigate } from "react-router-dom";
 import MovieDetailPage from "./MovieDetailPage";
 
 const MovieGrid = styled.div`
-  width: 100%;
+  width: 70%;
   height: auto;
   display: grid;
   grid-template-columns: repeat(
-    6,
+    4,
     minmax(200px, 1fr)
   ); // 각 컬럼의 최소 너비를 200px로 설정
   gap: 1rem;
@@ -20,7 +20,6 @@ const MovieGrid = styled.div`
   color: white;
 `;
 
-// MovieList 컴포넌트 안의 이미지 스타일링
 const MovieImage = styled.img`
   width: 100%;
   height: 100%;
@@ -39,14 +38,26 @@ const MovieInformation = styled.div`
   justify-content: space-evenly;
   align-items: center;
   width: 100%;
-  height: 100px;
+  height: 80px;
+  max-height: 80px;
   border: 1px solid gray;
   box-sizing: border-box;
   padding: 10px;
   background-color: #545196;
 `;
 
-export default function Movielist({ movies }) {
+const MovieRating = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+`;
+
+const StarIcon = styled.div`
+  color: gold;
+  margin-right: 5px;
+`;
+
+export default function MovieList({ movies }) {
   const navigate = useNavigate();
 
   const handleMovieClick = (movie) => {
@@ -65,7 +76,10 @@ export default function Movielist({ movies }) {
           />
           <MovieInformation>
             <h4>{movie.title}</h4>
-            <h4>{movie.vote_average}</h4>
+            <MovieRating>
+              <StarIcon>★</StarIcon>
+              <h4>{movie.vote_average}</h4>
+            </MovieRating>
           </MovieInformation>
         </MovieCard>
       ))}

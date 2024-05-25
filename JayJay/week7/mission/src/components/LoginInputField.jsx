@@ -18,7 +18,7 @@ const ErrorMessage = styled.div`
   margin-top: 5px;
 `;
 
-const SignUpInputField = ({ type, placeholder, value, onChange, error }) => {
+const LoginInputField = ({ type, placeholder, value, onChange, error }) => {
   return (
     <div>
       <Input
@@ -32,4 +32,4 @@ const SignUpInputField = ({ type, placeholder, value, onChange, error }) => {
   );
 };
 
-export default SignUpInputField;
+export default LoginInputField;

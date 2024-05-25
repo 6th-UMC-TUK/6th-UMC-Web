@@ -12,6 +12,7 @@ export default function HeaderWithRouting() {
   //여기서 좀 헷갈렸네..some이랑 every 차이 알면 좋음
   const routes = [
     "/",
+    "/login",
     "/popular",
     "/now-playing",
     "/top-rated",

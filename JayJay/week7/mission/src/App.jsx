@@ -13,6 +13,7 @@ import Upcoming from "./components/Upcoming";
 import MovieDetailPage from "./components/MovieDetailPage";
 import NotFound from "./components/NotFound";
 import SignUpPage from "./components/SignUpPage";
+import LoginPage from "./components/LoginPage";
 
 const Container = styled.div`
   display: flex;
@@ -34,6 +35,7 @@ function App() {
           {/* Routes를 사용하여 각 경로에 해당하는 컴포넌트를 렌더링합니다. */}
           <Route path="/" element={<MainPage />} />
           <Route path="/signup" element={<SignUpPage />} />
+          <Route path="/login" element={<LoginPage />} />
           <Route path="/popular" element={<PopularPage />} />
           <Route path="/now-playing" element={<NowPlayingPage />} />
           <Route path="/top-rated" element={<TopRatedPage />} />

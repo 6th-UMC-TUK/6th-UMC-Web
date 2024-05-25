@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import SignUpInputField from "./SignUpInputField";
 
@@ -27,6 +27,9 @@ const Button = styled.button`
   border: none;
   background-color: #fff;
   cursor: pointer;
+  width: 510px;
+  max-width: 510px;
+  box-sizing: border-box;
   &:disabled {
     background-color: #ccc;
     cursor: not-allowed;
@@ -34,6 +37,7 @@ const Button = styled.button`
 `;
 
 const SignUpPage = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
     id: "",
@@ -115,6 +119,7 @@ const SignUpPage = () => {
     ) {
       console.log("Form data is valid and was submitted:", formData);
       alert("회원가입이 성공적으로 완료되었습니다.");
+      navigate("/");
     } else {
       alert("유효성 검사를 모두 통과해야 합니다.");
     }

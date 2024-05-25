@@ -78,6 +78,7 @@ export default function Header() {
           <StyledLink to="/signup" param={location.pathname}>
             회원가입
           </StyledLink>
+          <StyledLink to="/login">로그인</StyledLink>
           <StyledLink to="/popular">Popular</StyledLink>
           <StyledLink to="/now-playing">Now Playing</StyledLink>
           <StyledLink to="/top-rated">Top Rated</StyledLink>
