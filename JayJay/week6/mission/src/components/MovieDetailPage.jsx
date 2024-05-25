@@ -15,7 +15,7 @@ const MovieDetailBox = styled.div`
   background-position: center;
   background-repeat: no-repeat;
   background-color: rgba(0, 0, 0, 0.7);
-  position: relative;
+  position: relative;//필수
   &::before {
     content: "";
     position: absolute;

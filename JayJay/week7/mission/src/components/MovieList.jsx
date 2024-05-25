@@ -1,8 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import MovieDetailPage from "./MovieDetailPage";
+import Rolling from "../assets/Rolling.gif";
 
 const MovieGrid = styled.div`
   width: 70%;
@@ -20,15 +19,16 @@ const MovieGrid = styled.div`
   color: white;
 `;
 
-const MovieImage = styled.img`
-  width: 100%;
-  height: 100%;
-`;
-
 const MovieCard = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+`;
+
+const MovieImage = styled.img`
   width: 100%;
   height: 100%;
 `;
@@ -46,6 +46,10 @@ const MovieInformation = styled.div`
   background-color: #545196;
 `;
 
+const MovieTitle = styled.h4`
+  margin: 0;
+`;
+
 const MovieRating = styled.div`
   display: flex;
   align-items: center;
@@ -57,32 +61,83 @@ const StarIcon = styled.div`
   margin-right: 5px;
 `;
 
-export default function MovieList({ movies }) {
+const LoadingContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: auto;
+`;
+
+const LoadingBox = styled.div`
+  width: 50px;
+  height: 50px;
+`;
+
+const LoadingImage = styled.img`
+  width: 100%;
+  height: 100%;
+  background: transparent;
+`;
+
+export default function MovieList({ movies, loading, lastMovieElementRef }) {
   const navigate = useNavigate();
 
   const handleMovieClick = (movie) => {
     navigate(`/movie/${movie.id}`, { state: { movie } });
   };
+
   return (
-    <MovieGrid>
-      {movies.map((movie) => (
-        <MovieCard
-          key={movie.id} // `key`를 여기에 직접 적용
-          onClick={() => handleMovieClick(movie)}
-        >
-          <MovieImage
-            src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
-            alt={movie.title}
-          />
-          <MovieInformation>
-            <h4>{movie.title}</h4>
-            <MovieRating>
-              <StarIcon>★</StarIcon>
-              <h4>{movie.vote_average}</h4>
-            </MovieRating>
-          </MovieInformation>
-        </MovieCard>
-      ))}
-    </MovieGrid>
+    <div>
+      <MovieGrid>
+        {movies.map((movie, index) => {
+          const movieKey = `${movie.id}-${index}`;
+          if (movies.length === index + 1) {
+            return (
+              <MovieCard
+                ref={lastMovieElementRef}
+                key={movieKey}
+                onClick={() => handleMovieClick(movie)}
+              >
+                <MovieImage
+                  src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
+                  alt={movie.title}
+                />
+                <MovieInformation>
+                  <MovieTitle>{movie.title}</MovieTitle>
+                  <MovieRating>
+                    <StarIcon>★</StarIcon>
+                    <h4>{movie.vote_average}</h4>
+                  </MovieRating>
+                </MovieInformation>
+              </MovieCard>
+            );
+          } else {
+            return (
+              <MovieCard key={movieKey} onClick={() => handleMovieClick(movie)}>
+                <MovieImage
+                  src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
+                  alt={movie.title}
+                />
+                <MovieInformation>
+                  <MovieTitle>{movie.title}</MovieTitle>
+                  <MovieRating>
+                    <StarIcon>★</StarIcon>
+                    <h4>{movie.vote_average}</h4>
+                  </MovieRating>
+                </MovieInformation>
+              </MovieCard>
+            );
+          }
+        })}
+      </MovieGrid>
+      {loading && (
+        <LoadingContainer>
+          <LoadingBox>
+            <LoadingImage src={Rolling} />
+          </LoadingBox>
+        </LoadingContainer>
+      )}
+    </div>
   );
 }
