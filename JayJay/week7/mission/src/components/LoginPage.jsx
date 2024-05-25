@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import LoginInputField from "./LoginInputField";
+import axios from "axios";
 
 const Container = styled.div`
   display: flex;
@@ -36,6 +37,7 @@ const Button = styled.button`
 `;
 
 const LoginPage = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     id: "",
     password: "",
@@ -71,14 +73,30 @@ const LoginPage = () => {
     validateField(field, value);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (
       Object.values(errors).every((error) => error === "") &&
       Object.values(formData).every((value) => value !== "")
     ) {
+      try {
+        const response = await axios.post("http://localhost:8080/auth/login", {
+          username: formData.id,
+          password: formData.password,
+        });
+        const { token } = response.data;
+        localStorage.setItem("token", token);
+        console.log("login was submitted:", response.data);
+        navigate("/");
+      } catch (error) {
+        console.error("Error during login:", error);
+        if (error.response && error.response.data) {
+          alert(error.response.data.message);
+        } else {
+          alert("로그인 중 오류가 발생했습니다. 다시 시도해주세요.");
+        }
+      }
       console.log("Form data is valid and was submitted:", formData);
-      alert("로그인이 성공적으로 완료되었습니다.");
     } else {
       alert("유효성 검사를 모두 통과해야 합니다.");
     }

@@ -1,7 +1,6 @@
 import React from "react";
-import { Link, useNavigate, useLocation } from "react-router-dom"; // Link 컴포넌트를 임포트합니다.
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { useState } from "react";
 
 const HeaderBox = styled.div`
   display: flex;
@@ -49,7 +48,6 @@ const CategoryList = styled.div`
 `;
 
 const StyledLink = styled(Link)`
-  //Link 컴포넌트 스타일링 따로해줌
   margin-right: 20px;
   color: ${(prop) => (prop.param === "/signup" ? "yellow" : "white")};
   font-weight: ${(prop) => (prop.param === "/signup" ? "bold" : "")};
@@ -68,21 +66,41 @@ const StyledLink = styled(Link)`
   }
 `;
 
-export default function Header() {
+export default function Header({ user, loading, onLogout }) {
   const location = useLocation();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    onLogout();
+    navigate("/login");
+  };
+
   return (
     <HeaderBox>
       <MainLogo to="/">UMC MOVIE</MainLogo>
       <MovieCategory>
         <CategoryList>
-          <StyledLink to="/signup" param={location.pathname}>
-            회원가입
-          </StyledLink>
-          <StyledLink to="/login">로그인</StyledLink>
-          <StyledLink to="/popular">Popular</StyledLink>
-          <StyledLink to="/now-playing">Now Playing</StyledLink>
-          <StyledLink to="/top-rated">Top Rated</StyledLink>
-          <StyledLink to="/upcoming">Upcoming</StyledLink>
+          {user ? (
+            <>
+              <StyledLink onClick={handleLogout}>로그아웃</StyledLink>
+              <StyledLink to="/popular">Popular</StyledLink>
+              <StyledLink to="/now-playing">Now Playing</StyledLink>
+              <StyledLink to="/top-rated">Top Rated</StyledLink>
+              <StyledLink to="/upcoming">Upcoming</StyledLink>
+            </>
+          ) : (
+            <>
+              <StyledLink to="/login">로그인</StyledLink>
+              <StyledLink to="/signup" param={location.pathname}>
+                회원가입
+              </StyledLink>
+              <StyledLink to="/popular">Popular</StyledLink>
+              <StyledLink to="/now-playing">Now Playing</StyledLink>
+              <StyledLink to="/top-rated">Top Rated</StyledLink>
+              <StyledLink to="/upcoming">Upcoming</StyledLink>
+            </>
+          )}
         </CategoryList>
       </MovieCategory>
     </HeaderBox>

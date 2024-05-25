@@ -1,15 +1,45 @@
 import { useLocation, matchPath } from "react-router-dom";
 import Header from "./Header";
+import Banner from "./Banner";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 export default function HeaderWithRouting() {
   const location = useLocation();
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  // 영화 상세 페이지에서는 헤더를 렌더링하지 않음
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const token = localStorage.getItem("token");
+      if (token) {
+        try {
+          const response = await axios.get("http://localhost:8080/auth/me", {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+          setUser(response.data);
+        } catch (error) {
+          console.error("Error fetching user data:", error);
+          setUser(null);
+        }
+      }
+      setLoading(false);
+    };
+
+    fetchUserData();
+  }, []);
+
+  const handleLogout = () => {
+    setUser(null);
+  };
+
+  // 영화 상세 페이지에서는 헤더와 배너를 렌더링하지 않음
   if (location.pathname.startsWith("/movie/")) {
     return null;
   }
 
-  //여기서 좀 헷갈렸네..some이랑 every 차이 알면 좋음
   const routes = [
     "/",
     "/login",
@@ -29,5 +59,10 @@ export default function HeaderWithRouting() {
   }
 
   // 그 외의 경우(정의된 경로에서 동작하는 페이지) 헤더 렌더링
-  return <Header />;
+  return (
+    <>
+      <Header user={user} loading={loading} onLogout={handleLogout} />
+      {location.pathname === "/" && <Banner user={user} loading={loading} />}
+    </>
+  );
 }

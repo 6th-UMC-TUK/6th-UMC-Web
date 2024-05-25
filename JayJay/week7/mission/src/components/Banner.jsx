@@ -17,10 +17,16 @@ const BannerTitle = styled.div`
   height: 300px;
 `;
 
-export default function Banner() {
+export default function Banner({ user, loading }) {
   return (
     <BannerBox>
-      <BannerTitle>환영합니다</BannerTitle>
+      <BannerTitle>
+        {loading
+          ? "로딩 중..."
+          : user
+          ? `${user.name}님 환영합니다!`
+          : "환영합니다"}
+      </BannerTitle>
     </BannerBox>
   );
 }

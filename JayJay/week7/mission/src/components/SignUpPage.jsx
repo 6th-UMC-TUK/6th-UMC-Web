@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import SignUpInputField from "./SignUpInputField";
+import axios from "axios";
 
 const Container = styled.div`
   display: flex;
@@ -111,15 +112,32 @@ const SignUpPage = () => {
     validateField(field, value);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (
       Object.values(errors).every((error) => error === "") &&
       Object.values(formData).every((value) => value !== "")
     ) {
-      console.log("Form data is valid and was submitted:", formData);
-      alert("회원가입이 성공적으로 완료되었습니다.");
-      navigate("/");
+      try {
+        const response = await axios.post("http://localhost:8080/auth/signup", {
+          name: formData.name,
+          email: formData.email,
+          age: formData.age,
+          username: formData.id,
+          password: formData.password,
+          passwordCheck: formData.confirmPassword,
+        });
+        console.log("Form data is valid and was submitted:", response.data);
+        alert("회원가입이 성공적으로 완료되었습니다.");
+        navigate("/login");
+      } catch (error) {
+        console.error("Error during signup:", error);
+        if (error.response && error.response.data) {
+          alert(error.response.data.message);
+        } else {
+          alert("회원가입 중 오류가 발생했습니다. 다시 시도해주세요.");
+        }
+      }
     } else {
       alert("유효성 검사를 모두 통과해야 합니다.");
     }

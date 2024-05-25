@@ -14,7 +14,6 @@ const MainContent = styled.div`
 export default function MainPage() {
   return (
     <MainContent>
-      <Banner />
       <MovieSearch />
     </MainContent>
   );
