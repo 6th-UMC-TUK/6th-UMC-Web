@@ -84,6 +84,8 @@ const LoginPage = () => {
           username: formData.id,
           password: formData.password,
         });
+        console.log(response);
+        console.log(response.data);
         const { token } = response.data;
         localStorage.setItem("token", token);
         console.log("login was submitted:", response.data);
