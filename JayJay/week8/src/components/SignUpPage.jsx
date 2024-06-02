@@ -10,7 +10,7 @@ const Container = styled.div`
   align-items: center;
   justify-content: start;
   height: 100vh;
-  width: 100%;
+  width: 100vw;
   margin: 0 auto;
 `;
 
@@ -19,16 +19,17 @@ const Form = styled.form`
   flex-direction: column;
   align-items: center;
   width: 100%;
+  max-width: 510px;
 `;
 
 const Button = styled.button`
-  padding: 10px 20px;
+  padding: 8px 20px;
   margin: 20px 0;
   border-radius: 20px;
   border: none;
   background-color: #fff;
   cursor: pointer;
-  width: 510px;
+  width: 95%;
   max-width: 510px;
   box-sizing: border-box;
   &:disabled {

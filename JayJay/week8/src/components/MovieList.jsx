@@ -4,13 +4,13 @@ import { useNavigate } from "react-router-dom";
 import Rolling from "../assets/Rolling.gif";
 
 const MovieGrid = styled.div`
-  width: 70%;
+  min-width: 100%;
   height: auto;
   display: grid;
   grid-template-columns: repeat(
-    4,
+    auto-fit,
     minmax(200px, 1fr)
-  ); // 각 컬럼의 최소 너비를 200px로 설정
+  ); /* 자동 맞춤 */ // 각 컬럼의 최소 너비를 200px로 설정
   gap: 1rem;
   padding: 20px 60px;
   margin: 0 auto;

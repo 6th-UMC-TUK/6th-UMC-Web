@@ -6,21 +6,22 @@ const Input = styled.input`
   margin: 10px 0;
   border-radius: 20px;
   border: none;
-  width: 500px;
-  height: 40px;
+  width: 95%;
+  height: 45px;
+  box-sizing: border-box;
 `;
 
 const ErrorMessage = styled.div`
   display: flex;
   justify-content: flex-start;
-  width: 100%;
+  width: 95%;
   color: red;
   margin-top: 5px;
 `;
 
 const LoginInputField = ({ type, placeholder, value, onChange, error }) => {
   return (
-    <div>
+    <>
       <Input
         type={type}
         placeholder={placeholder}
@@ -28,7 +29,7 @@ const LoginInputField = ({ type, placeholder, value, onChange, error }) => {
         onChange={onChange}
       />
       {error && <ErrorMessage>{error}</ErrorMessage>}
-    </div>
+    </>
   );
 };
 

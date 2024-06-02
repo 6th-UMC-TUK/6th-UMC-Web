@@ -1,7 +1,10 @@
 #root {
-  width: 100vw;
-  height: 100%;
-  text-align: center;
+  width: 100%; /* 화면 너비에 맞춰서 100% */
+  height: 100%; /* 최소 높이를 화면 높이에 맞춤 */
+  display: flex;
+  flex-direction: column; /* 수직 정렬 */
+  justify-content: center; /* 수직 가운데 정렬 */
+  align-items: center; /* 수평 가운데 정렬 */
 }
 
 .logo {

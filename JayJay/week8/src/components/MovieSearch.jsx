@@ -52,6 +52,10 @@ const SearchIconBox = styled.div`
   padding: 5px;
   box-sizing: border-box;
   background-color: yellow;
+  @media (max-width: 768px) {
+    width: 30px;
+    height: 30px;
+  }
 `;
 
 const StyledFaSearch = styled(FaSearch)`

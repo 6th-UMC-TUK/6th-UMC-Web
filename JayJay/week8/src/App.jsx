@@ -18,7 +18,7 @@ import LoginPage from "./components/LoginPage";
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  width: 100%;
+  min-width: 100vw;
   height: 100vh;
   background-color: #202142;
 `;

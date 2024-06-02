@@ -10,7 +10,8 @@ const Container = styled.div`
   align-items: center;
   justify-content: flex-start;
   height: 100vh;
-  width: 100%;
+  width: 100vw;
+  margin: 0 auto;
 `;
 
 const Form = styled.form`
@@ -18,6 +19,7 @@ const Form = styled.form`
   flex-direction: column;
   align-items: center;
   width: 100%;
+  max-width: 510px;
 `;
 
 const Button = styled.button`
@@ -27,12 +29,22 @@ const Button = styled.button`
   border: none;
   background-color: #fff;
   cursor: pointer;
-  width: 500px;
-  max-width: 500px;
+  width: 95%;
+  max-width: 510px;
   box-sizing: border-box;
   &:disabled {
     background-color: #ccc;
     cursor: not-allowed;
+  }
+`;
+
+const StyledLink = styled(Link)`
+  color: #fff;
+  margin-top: 10px;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
   }
 `;
 
@@ -125,9 +137,9 @@ const LoginPage = () => {
           로그인
         </Button>
       </Form>
-      <Link to="/signup" style={{ color: "#fff", marginTop: "10px" }}>
+      <StyledLink to="/signup">
         회원가입이 필요하신가요? 회원가입 페이지로 이동하기
-      </Link>
+      </StyledLink>
     </Container>
   );
 };

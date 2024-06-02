@@ -15,6 +15,10 @@ const HeaderBox = styled.div`
   color: white;
   z-index: 11; /* 헤더가 사이드바 위에 위치하도록 z-index 설정 */
   position: relative;
+  box-sizing: border-box;
+  @media (max-width: 768px) {
+    padding: 0 10px; /* 작은 화면에서는 좌우 패딩 조정 */
+  }
 `;
 
 const MainLogo = styled(Link)`
@@ -40,6 +44,7 @@ const MovieCategory = styled.div`
   justify-content: space-evenly;
   height: 100%;
   padding: 10px;
+  margin-right: 15px;
   box-sizing: border-box;
 
   @media (max-width: 768px) {

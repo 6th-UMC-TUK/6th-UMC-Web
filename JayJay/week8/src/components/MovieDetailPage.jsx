@@ -8,14 +8,14 @@ import MoviePeopleList from "./MoviePeopleList";
 const MovieDetailBox = styled.div`
   display: flex;
   flex-direction: column;
-  width: 100vw;
+  width: 100%;
   min-height: 100vh;
   background-image: url(${(props) => props.backdrop});
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   background-color: rgba(0, 0, 0, 0.7);
-  position: relative;//필수
+  position: relative;
   &::before {
     content: "";
     position: absolute;
@@ -35,8 +35,16 @@ const MovieDetailInfoBox = styled.div`
   width: 100%;
   max-height: 700px;
   color: white;
-  margin-top: 70px;
+  margin-top: 30px;
   z-index: 2;
+
+  @media (max-width: 768px) {
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    max-height: none;
+    margin-top: 30px;
+  }
 `;
 
 const MovieDetailInfo = styled.div`
@@ -48,13 +56,41 @@ const MovieDetailInfo = styled.div`
   min-width: 600px;
   margin-left: 90px;
   height: 100%;
-  gap: 20px; // 요소들 간의 간격 조정
+  gap: 20px;
+
+  @media (max-width: 768px) {
+    align-items: center;
+    width: 100%;
+  }
+`;
+
+const MovieTitle = styled.div`
+  font-size: 2rem;
+  font-weight: bold;
+  @media (max-width: 768px) {
+    font-size: 1.5rem;
+    text-align: center;
+  }
+`;
+
+const ReleaseDate = styled.h1`
+  font-size: 1.5rem;
+  font-weight: bold;
+  @media (max-width: 768px) {
+    font-size: 1.2rem;
+    text-align: center;
+  }
 `;
 
 const MovieDetailImage = styled.img`
-  max-width: 100%;
-  max-height: 100%;
+  max-width: 90%;
+  max-height: 90%;
   z-index: 2;
+
+  @media (max-width: 768px) {
+    width: 100%;
+    margin-bottom: 20px;
+  }
 `;
 
 const MovieAverageBox = styled.div`
@@ -62,23 +98,60 @@ const MovieAverageBox = styled.div`
   align-items: center;
   width: 100%;
   height: auto;
+  @media (max-width: 768px) {
+    justify-content: center;
+  }
+`;
+
+const MovieOverview = styled.p`
+  font-size: 1rem;
+  line-height: 1.5;
+  max-width: 768px;
+  @media (max-width: 768px) {
+    text-align: center;
+    padding: 0 10px;
+    word-wrap: break-word;
+    word-break: break-word;
+    overflow-wrap: break-word;
+  }
 `;
 
 const MoviePeopleBox = styled.div`
   width: 100%;
-  height: 100vh;
+  height: auto;
   margin: 0 auto;
   padding: 40px;
   border-radius: 10px;
   color: white;
-  margin-top: 140px;
+  margin-top: 70px;
   box-sizing: border-box;
   z-index: 2;
+
+  @media (max-width: 768px) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 40px;
+    padding: 20px;
+    width: 100%;
+  }
 `;
 
 const AllPeopleTitle = styled.span`
   font-size: large;
   padding: 10px;
+`;
+
+const MoviePeopleListWrapper = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
 `;
 
 export default function MovieDetailPage() {
@@ -108,21 +181,25 @@ export default function MovieDetailPage() {
             alt={movie.title}
           />
           <MovieDetailInfo>
-            <div>{movie.title}</div>
+            <MovieTitle>{movie.title}</MovieTitle>
             <MovieAverageBox>
               평점: <span dangerouslySetInnerHTML={{ __html: starCount }} />
             </MovieAverageBox>
-            <h1>{movie.release_date}</h1>
+            <ReleaseDate>{movie.release_date}</ReleaseDate>
             {movie.overview ? (
-              <p>{movie.overview}</p>
+              <MovieOverview>{movie.overview}</MovieOverview>
             ) : (
-              <p>TDMB에서 제공하는 상세정보가 없습니다.</p>
+              <MovieOverview>
+                TDMB에서 제공하는 상세정보가 없습니다.
+              </MovieOverview>
             )}
           </MovieDetailInfo>
         </MovieDetailInfoBox>
         <MoviePeopleBox>
           <AllPeopleTitle>출연진 및 제작진</AllPeopleTitle>
-          <MoviePeopleList movieId={movie.id} />
+          <MoviePeopleListWrapper>
+            <MoviePeopleList movieId={movie.id} />
+          </MoviePeopleListWrapper>
         </MoviePeopleBox>
       </MovieDetailBox>
     </>
