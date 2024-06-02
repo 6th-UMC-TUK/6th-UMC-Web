@@ -1,0 +1,136 @@
+#root {
+  width: 100vw;
+  height: 100%;
+  text-align: center;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
+
+.movie-grid {
+  width: auto;
+  height: 100%;
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 2rem;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.movie-card {
+  position: relative; /* 상대적 위치 지정 */
+  width: 270px;
+  height: 560px;
+  margin-bottom: 20px;
+  background-color: #535bf2;
+}
+
+.movie-card:hover {
+  color: gray;
+}
+
+.movie-card:hover .movie-overview-box {
+  opacity: 1; /* 마우스 오버시 보이게 */
+}
+
+.movie-list {
+  width: 100%;
+  height: 100%;
+}
+
+.movie-list.hovered,
+.movie-list:hover {
+  opacity: 0.5; /* 투명도 조절 */
+}
+
+.movie-card img {
+  width: 100%;
+  height: 85%;
+}
+
+.movie-bottom {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  height: auto;
+  color: white;
+}
+
+.movie-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: auto;
+  height: 100%;
+  padding: 5px 10px;
+}
+
+.movie-title {
+  font-size: small;
+  padding: 5px;
+}
+
+.movie-info .movie-average {
+  font-size: small;
+}
+
+.movie-overview-box {
+  position: absolute; /* 절대적 위치 지정 */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5); /* 투명 배경 */
+  color: white; /* 텍스트 색상 */
+  opacity: 0; /* 처음에는 안 보이게 */
+  transition: opacity 0.3s ease; /* 효과적인 전환 */
+}
+
+.movie-overview {
+  font-size: 0.8rem; /* 폰트 사이즈 줄이기 */
+  line-height: 1.2; /* 줄 간격 조정 */
+  padding: 10px; /* 내부 여백 조정 */
+  word-break: break-all; /* 요즘은 break-all를 씀 */
+  overflow-wrap: break-word; /* 오버플로우를 방지하기 위해 단어 내에서 줄바꿈 */
+}
+
+.description-title {
+  padding: 10px;
+}
