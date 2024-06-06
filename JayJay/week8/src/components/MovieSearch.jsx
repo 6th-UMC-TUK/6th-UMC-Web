@@ -32,6 +32,10 @@ const SearchInputBox = styled.div`
   align-items: center;
   width: 100%;
   margin-bottom: 20px;
+  @media (max-width: 768px) {
+    padding: 10px;
+    box-sizing: border-box;
+  }
 `;
 
 const SearchInput = styled.input`
