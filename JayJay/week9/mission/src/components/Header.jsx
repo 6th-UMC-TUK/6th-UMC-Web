@@ -1,6 +1,7 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { clearCart, calculateTotals } from "../redux/cartSlice";
+import { openModal } from "../redux/modalSlice";
 import styled from "styled-components";
 import { CartIcon } from "../constants/icons.jsx";
 
@@ -49,11 +50,6 @@ const Header = () => {
   const totalQuantity = useSelector((state) => state.cart.totalQuantity);
   const dispatch = useDispatch();
 
-  const handleClearCart = () => {
-    dispatch(clearCart());
-    dispatch(calculateTotals());
-  };
-
   return (
     <HeaderWrapper>
       <HeaderTitle>UMC PlayList</HeaderTitle>
@@ -63,7 +59,9 @@ const Header = () => {
         </IconWrapper>
         <span>Total Amount: {totalAmount}원</span>
         <span>Total Quantity: {totalQuantity}개</span>
-        <ClearButton onClick={handleClearCart}>장바구니 초기화</ClearButton>
+        <ClearButton onClick={() => dispatch(openModal())}>
+          장바구니 초기화
+        </ClearButton>
       </CartInfo>
     </HeaderWrapper>
   );
