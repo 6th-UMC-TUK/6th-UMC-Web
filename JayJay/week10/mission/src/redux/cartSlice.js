@@ -4,14 +4,14 @@ import axios from "axios";
 // 서버로부터 데이터를 가져오는 thunk 생성
 export const fetchCartItems = createAsyncThunk(
   "cart/fetchCartItems",
-  async (_, { rejectWithValue }) => {
+  async (_, thunkAPI) => {
     try {
       const response = await axios.get("http://localhost:8080/musics");
-      console.log(response.data); //데이터 구조 확인 겸 response.data 출력해봄
+      console.log(response.data); // 데이터 구조 확인 겸 response.data 출력해봄
       return response.data;
     } catch (error) {
-      // 에러가 발생하면 rejectWithValue를 사용하여 에러 메시지를 반환
-      return rejectWithValue(error.response.data);
+      const errorMessage = error.response?.data || "서버 응답이 없습니다.";
+      return thunkAPI.rejectWithValue(errorMessage);
     }
   }
 );
@@ -75,7 +75,7 @@ const cartSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    //각각 pending부터 rejected까지 그에 맞는 상태값 저장
+    // 각각 pending부터 rejected까지 그에 맞는 상태값 저장
     builder
       .addCase(fetchCartItems.pending, (state) => {
         state.status = "loading";
@@ -95,6 +95,8 @@ const cartSlice = createSlice({
       .addCase(fetchCartItems.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.payload; // 에러 메시지를 상태에 저장
+        console.log("Rejected action payload:", action.payload); // 에러 메시지 출력
+        alert(action.payload); // 에러 메시지를 alert 창으로 표시
       });
   },
 });
