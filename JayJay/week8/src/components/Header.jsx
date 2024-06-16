@@ -116,6 +116,9 @@ const Sidebar = styled.div`
 const CloseIcon = styled(FaTimes)`
   align-self: flex-end;
   cursor: pointer;
+  @media (max-width: 768px) {
+    padding: 10px;
+  }
 `;
 
 export default function Header({ user, loading, onLogout }) {
